@@ -15,3 +15,6 @@ If you need JDA documentation, [here it is](http://home.dv8tion.net:8080/job/JDA
 ## The final goal (IN PROGRESS)
 
 Put below all the idea you might have for the game. It would be better if you think about the game without thinking about *how I will developpe that*.
+
+Proposal 1: Every day/every two days/.../every week, the bot chooses someone and sends him a private message. The chosen one has to follow certain rules (Which rules? Good question. Any ideas?). At the end of the time period, everyone can vote for one person, of which he thinks he was chosen by the bot. The ones who are right receive points and at the end of a semester we have a winner.
+Proposal 2: The bot plays hangman with us.
