@@ -1,5 +1,5 @@
 package main.model.blackjack;
 
-public class Talon {
+public class Deck {
 
 }

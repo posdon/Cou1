@@ -1,5 +1,5 @@
 package main.model.blackjack;
 
-public class Carte {
+public class Card {
 
 }
