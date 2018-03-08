@@ -16,7 +16,8 @@ public class UnoPlayer {
 	private boolean finished;
 	private boolean saidUno;
 	private ArrayList<UnoCard> hand;
-	//TODO add a value corresponding to an actual discord user
+	//TODO add a value corresponding to an actual discord user -> Really ? What is a discord user ? We are in the model package here, not the bot package.
+	// If you can't remember this rule, so forget discord
 	
 	public UnoPlayer(int id) {
 		this.id = id;

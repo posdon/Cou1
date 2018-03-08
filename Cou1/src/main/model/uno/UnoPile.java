@@ -8,8 +8,8 @@ import java.util.ArrayList;
  *
  */
 public class UnoPile extends UnoCardStack{
-	
-	
+	// So it's just a junk stack ? Do you need a class for this object ?
+	// If you don't have more than one attribute, it's rare that you will have a class
 	
 	
 	public void add(UnoCard card) {content.add(card);}

@@ -34,7 +34,7 @@ public class UnoDeck extends UnoCardStack{
 	
 	
 	
-	
+	// Nice feeling. With enum it would be easier but you go in the good way
 	/**
 	 * Add all the cards of a color.
 	 * @param color

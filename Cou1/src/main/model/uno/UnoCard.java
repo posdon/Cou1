@@ -8,7 +8,7 @@ package main.model.uno;
 public class UnoCard {
 	
 	
-	
+	// Try an enum
 	/**
 	 * The value of the card.
 	 * 0-9 : the number of the card.
@@ -20,6 +20,7 @@ public class UnoCard {
 	 */
 	private int value;
 	
+	// Try an enum too : 
 	/**
 	 * The color of the card.
 	 * By default : "jaune" "rouge" "vert" "bleu" for normal cards
@@ -82,6 +83,8 @@ public class UnoCard {
 		
 	}
 	
+	// Attention à ne pas oublier @Override.
+	// Sinon tu risques d'appeler la méthode equals de la classe Object (toutes les classes héritent d'Object)
 	public boolean equals(UnoCard card) {
 		return(this.value==card.value||this.color.equals(card.color));
 	}
