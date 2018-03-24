@@ -7,6 +7,7 @@ import java.util.Random;
 public class LoveLetterDeck {
 
 	private List<LoveLetterCards> deck;
+	private LoveLetterCards removedCard;
 
 	private final int NB_GUARD = 5;
 	private final int NB_PRIEST = 2;
@@ -25,18 +26,18 @@ public class LoveLetterDeck {
 	/**
 	 * Create and shuffle the deck composition
 	 */
-	public void initializeDeck() {
+	private void initializeDeck() {
 		List<LoveLetterCards> flatCompositionDeck = new ArrayList<LoveLetterCards>();
 		constructComposition(flatCompositionDeck);
 		shuffle(flatCompositionDeck);
-		this.deck.remove(0);
+		this.removedCard = this.deck.remove(0);
 	}
 	
 	/**
 	 * Add all the cards to the given deck
 	 * @param flatCompositionDeck
 	 */
-	public void constructComposition(List<LoveLetterCards> flatCompositionDeck) {
+	private void constructComposition(List<LoveLetterCards> flatCompositionDeck) {
 		for(int i=0; i<NB_GUARD; i++) {
 			flatCompositionDeck.add(LoveLetterCards.GUARD);
 		}
@@ -74,7 +75,7 @@ public class LoveLetterDeck {
 	 * Shuffle with a pseudo random way the deck
 	 * @param flatCompositionDeck
 	 */
-	public void shuffle(List<LoveLetterCards> flatCompositionDeck) {
+	private void shuffle(List<LoveLetterCards> flatCompositionDeck) {
 		this.deck.clear();
 		Random rdm = new Random();
 		while (flatCompositionDeck.size() > 0) {
@@ -82,12 +83,32 @@ public class LoveLetterDeck {
 			this.deck.add(flatCompositionDeck.remove(randomInd));
 		}
 	}
+	
+	/**
+	 * Shuffle with a pseudo random way the deck
+	 */
+	public void shuffle() {
+		shuffle(new ArrayList<LoveLetterCards>(this.deck));
+	}
 
 	/** 
 	 * Add the first card of the deck to the player's hand
 	 * @param player
 	 */
 	public void draw(LoveLetterPlayer player) {
-		player.addCard(this.deck.remove(0));
+		if(!this.deck.isEmpty())
+			player.addCard(this.deck.remove(0));
+	}
+	
+	public int getNbCard() {
+		return this.deck.size();
+	}
+	
+	public LoveLetterCards getRemovedCard() {
+		return this.removedCard;
+	}
+	
+	public boolean isEmpty() {
+		return this.deck.isEmpty();
 	}
 }
