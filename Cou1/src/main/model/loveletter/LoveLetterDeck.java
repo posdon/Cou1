@@ -18,7 +18,7 @@ public class LoveLetterDeck {
 	private final int NB_COUNTESS = 1;
 	private final int NB_PRINCESS = 1;
 	
-	public LoveLetterDeck() {
+	protected LoveLetterDeck() {
 		this.deck = new ArrayList<LoveLetterCards>();
 		initializeDeck();
 	}
@@ -87,7 +87,7 @@ public class LoveLetterDeck {
 	/**
 	 * Shuffle with a pseudo random way the deck
 	 */
-	public void shuffle() {
+	protected void shuffle() {
 		shuffle(new ArrayList<LoveLetterCards>(this.deck));
 	}
 
@@ -95,20 +95,20 @@ public class LoveLetterDeck {
 	 * Add the first card of the deck to the player's hand
 	 * @param player
 	 */
-	public void draw(LoveLetterPlayer player) {
+	protected void draw(LoveLetterPlayer player) {
 		if(!this.deck.isEmpty())
 			player.addCard(this.deck.remove(0));
 	}
 	
-	public int getNbCard() {
+	protected int getNbCard() {
 		return this.deck.size();
 	}
 	
-	public LoveLetterCards getRemovedCard() {
+	protected LoveLetterCards getRemovedCard() {
 		return this.removedCard;
 	}
 	
-	public boolean isEmpty() {
+	protected boolean isEmpty() {
 		return this.deck.isEmpty();
 	}
 }

@@ -15,12 +15,12 @@ public class LoveLetterPlayer {
 	 * 								*
 	 ****************************** */
 	
-	public LoveLetterPlayer(String name) {
+	protected LoveLetterPlayer(String name) {
 		this.name = name;
 		this.hand = new ArrayList<LoveLetterCards>();
 	}
 	
-	public LoveLetterPlayer() {
+	protected LoveLetterPlayer() {
 		this(DEFAULT_NAME);
 	}
 	
@@ -31,18 +31,18 @@ public class LoveLetterPlayer {
 	 ****************************** */
 	
 	
-	public String getName() {
+	protected String getName() {
 		return this.name;
 	}
 	
-	public int getNumberOfCardInHand() {
+	protected int getNumberOfCardInHand() {
 		return this.hand.size();
 	}
 	
 	/**
 	 * @return if the player's hand is not empty
 	 */
-	public boolean isAlive() {
+	protected boolean isAlive() {
 		return ! this.hand.isEmpty();
 	}
 
@@ -51,7 +51,7 @@ public class LoveLetterPlayer {
 	 * There is no limits of card.
 	 * @param card
 	 */
-	public void addCard(LoveLetterCards card) {
+	protected void addCard(LoveLetterCards card) {
 		this.hand.add(card);
 	}
 	
@@ -61,7 +61,7 @@ public class LoveLetterPlayer {
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public LoveLetterCards discard(int ind) throws IndexOutOfBoundsException {
+	protected LoveLetterCards discard(int ind) throws IndexOutOfBoundsException {
 		try {
 			return this.hand.remove(ind);
 		} catch (IndexOutOfBoundsException e) {
