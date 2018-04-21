@@ -2,13 +2,13 @@ package main.bot.command.listener;
 
 import main.bot.ExecutorType;
 import main.bot.command.Command;
+import main.model.ModelFactory;
 import main.model.example.ExampleInterface;
-import main.model.example.ExampleManager;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
 public class ExampleCommandListener {
 
-private ExampleInterface example = new ExampleManager();
+	private ExampleInterface example = ModelFactory.INSTANCE.getExampleModel();
 	
 	@Command(command="\\!log\\s+$1", description="!log $1", type=ExecutorType.USER)
 	public void callLogSomething(String message) {
