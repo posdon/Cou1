@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Discord"/>
+	<classpathentry kind="lib" path="/home/ixolius/Austausch/Privat/eclipse-extpackages/JDA-3.6.0_354-withDependencies.jar" sourcepath="/home/ixolius/Austausch/Privat/eclipse-extpackages/JDA-3.6.0_354-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/ixolius/Austausch/Privat/eclipse-extpackages/JDA-3.6.0_354-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
