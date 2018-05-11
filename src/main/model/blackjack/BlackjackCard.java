@@ -43,4 +43,12 @@ public class BlackjackCard {
 	public boolean isAce() {
 		return (this.number.toString().equals("ACE"));
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof BlackjackCard) {
+			return (((BlackjackCard) o).number == this.number);
+		}
+		return false;
+	}
 }
