@@ -39,20 +39,6 @@ public class BlackjackHand {
 		return null;
 	}
 	
-
-	public int aceCounts11Value() {
-		int sum = 0;
-		try {
-			for(BlackjackCard c : cards) {
-				if (c.isAce()) sum +=11;
-				else sum += c.getPointValue();
-			}
-		} catch (AceValueAccessException e) {
-			LOG.error(e.getMessage());
-		}
-		return sum;
-	}
-	
 	public int optimalValue(){
 		int sum = 0;
 		int aceCount =0;
@@ -67,7 +53,7 @@ public class BlackjackHand {
 		} catch (AceValueAccessException e) {
 			LOG.error(e.getMessage());
 		}
-		while(aceCount > 0) {
+		for(int i = aceCount; i > 0;i--) {
 			if (sum >21) sum -=10;
 			else return sum;
 		}

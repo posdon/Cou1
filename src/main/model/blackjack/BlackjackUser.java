@@ -4,16 +4,14 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 	
 	private BlackjackHand splitHand;
 	private int bid;
-	private String userName;
 	private boolean active;
 	private Thread waitThread;
 
 	
 	public BlackjackUser(BlackjackDeck deck,int bid, String userName) {
-		super(deck);
+		super(deck, userName);
 		this.splitHand = null;
 		this.bid = bid;
-		this.userName = userName;
 		this.active = false;
 		this.waitThread = null;
 	}
@@ -30,7 +28,7 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 	}
 	
 	public void nextMove() {
-		waitThread = new Thread(new BlackjackUserState(this),userName);
+		waitThread = new Thread(new BlackjackUserState(this),playerName);
 	}
 	
 	public void timeout(Thread timerThread) {
@@ -41,7 +39,6 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 	
 	public void nextUser() {
 		active = false;
-		// TODO Link to main class: NextUser
 	}
 	
 	public void stand() {
@@ -52,13 +49,15 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 		}
 	}
 	
-	public void hit(BlackjackDeck deck) {
+	public boolean hit(BlackjackDeck deck) {
 		if(splitHandActive()) {
 			splitHand.addCard(deck.drawCard());
+			return false;
 		} else {
 			mainHand.addCard(deck.drawCard());
 			if (mainHand.getIsOut()) nextUser();
 			else nextMove();
+			return mainHand.getIsOut();
 		}
 	}
 	
@@ -72,28 +71,27 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 		nextMove();
 	}
 	
-	public void doubleDown(BlackjackDeck deck) {
+	public boolean doubleDown(BlackjackDeck deck) {
 		if (mainHand.isBeginning()) {
 			bid *=2;
 			this.mainHand.addCard(deck.drawCard());
 			nextUser();
+			return true;
 		}
-		// TODO else display not poss!
-		else nextMove();
-	}
-
-	@Override
-	public boolean checkIsOut() {
-		// TODO Auto-generated method stub
-		return false;
+		else {
+			nextMove();
+			return false;
+		}
 	}
 	
-	public double getGain(BlackjackHand dealersHand) {
+	public int getGain(BlackjackHand dealersHand) {
 		boolean splitted = (splitHand != null);
 		if (mainHand.getWonBlackjack() && !splitted) {
-			return (dealersHand.getWonBlackjack()) ? 0 : bid*1.5;
+			if (dealersHand.getWonBlackjack())
+				return 0;
+			else return (int) (bid*1.5);
 		} else if (dealersHand.getWonBlackjack()) {
-			return bid*(-1.0);
+			return bid*(-1);
 		} else {
 			double gain = 0;
 			if (splitted) {
@@ -104,9 +102,11 @@ public class BlackjackUser extends BlackjackAbstractPlayer {
 			if (mainHand.getIsOut()) gain += bid * (splitted ? -0.5 : -1.0);
 			else if (dealersHand.getIsOut() || mainHand.optimalValue() > dealersHand.optimalValue()) gain += bid*(splitted ? 0.5 : 1.0);
 			else if (mainHand.optimalValue() < dealersHand.optimalValue()) gain +=bid*(splitted ? -0.5 : -1.0);
-			return gain;
+			return (int) gain;
 		}
 	}
+	
+	public boolean getActive() {return active;}
 
 	private boolean splitHandActive() {
 		return (splitHand != null && !splitHand.getStands() && !splitHand.getIsOut());
