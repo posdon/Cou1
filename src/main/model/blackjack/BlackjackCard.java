@@ -4,8 +4,8 @@ import main.exception.bot.*;
 
 public class BlackjackCard {
 
-	protected Color color;
-	protected CardNumber number;
+	private Color color;
+	private CardNumber number;
 	
 	public BlackjackCard(int colorCode, int numberCode) {
 		switch(colorCode) {
@@ -47,7 +47,11 @@ public class BlackjackCard {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof BlackjackCard) {
-			return (((BlackjackCard) o).number == this.number);
+			try {
+				return (((BlackjackCard) o).number.getValue() == this.number.getValue());
+			} catch (AceValueAccessException e) {
+				return (((BlackjackCard) o).isAce() == this.isAce());
+			}
 		}
 		return false;
 	}

@@ -12,11 +12,10 @@ public abstract class BlackjackAbstractPlayer {
 	
 	public void init(BlackjackDeck deck){
 		this.mainHand = new BlackjackHand();
-		this.mainHand.hit(deck.drawCard());
+		this.mainHand.addCard(deck.drawCard());
 	}
 	
 	public abstract boolean checkIsOut();
 	
-	public abstract boolean checkWonBlackjack();
 	
 }

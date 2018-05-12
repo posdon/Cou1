@@ -3,13 +3,16 @@ package main.model.blackjack;
 import java.util.List;
 import java.util.ArrayList;
 import main.exception.bot.AceValueAccessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BlackjackHand {
 	
-	protected List<BlackjackCard> cards;
-	protected boolean wonBlackjack;
-	protected boolean isOut;
-	protected boolean stands;
+	private List<BlackjackCard> cards;
+	private boolean wonBlackjack;
+	private boolean isOut;
+	private boolean stands;
+	private static final Logger LOG = LoggerFactory.getLogger(BlackjackHand.class);
 	
 	public BlackjackHand() {
 		this.cards = new ArrayList<BlackjackCard>();
@@ -19,47 +22,50 @@ public class BlackjackHand {
 	}
 	
 	
-	public void hit(BlackjackCard card) {
+	public void addCard(BlackjackCard card) {
 		this.cards.add(card);
-		int val = 0;
-		try {
-			val = optimalValue();
-		} catch(AceValueAccessException e) {
-			System.out.println(e.getMessage());
-		}
+		int val = optimalValue();
 		if (val > 21) isOut = true;
-		if (val== 21) wonBlackjack = true;
+		if (val == 21 && isBeginning()) wonBlackjack = true;
 	}
 	
 	public void stand() {
 		stands = true;
 	}
 	
-	public BlackjackCard splitHand() {
-		if (cards.size() == 2 && cards.get(0).equals(cards.get(1)))
+	public BlackjackCard split() {
+		if (isBeginning() && cards.get(0).equals(cards.get(1)))
 			return cards.remove(1);
 		return null;
 	}
 	
 
-	public int aceCounts11Value() throws AceValueAccessException{
+	public int aceCounts11Value() {
 		int sum = 0;
-		for(BlackjackCard c : cards) {
-			if (c.isAce()) sum +=11;
-			else sum += c.getPointValue();
+		try {
+			for(BlackjackCard c : cards) {
+				if (c.isAce()) sum +=11;
+				else sum += c.getPointValue();
+			}
+		} catch (AceValueAccessException e) {
+			LOG.error(e.getMessage());
 		}
 		return sum;
 	}
 	
-	public int optimalValue() throws AceValueAccessException{
+	public int optimalValue(){
 		int sum = 0;
 		int aceCount =0;
-		for(BlackjackCard c : cards) {
-			if (c.isAce()) {
-				sum +=11;
-				aceCount++;
+		try {
+			for(BlackjackCard c : cards) {
+				if (c.isAce()) {
+					sum +=11;
+					aceCount++;
+				}
+				else sum += c.getPointValue();
 			}
-			else sum += c.getPointValue();
+		} catch (AceValueAccessException e) {
+			LOG.error(e.getMessage());
 		}
 		while(aceCount > 0) {
 			if (sum >21) sum -=10;
@@ -67,6 +73,8 @@ public class BlackjackHand {
 		}
 		return sum;
 	}
+	
+	public boolean isBeginning() { return (this.cards.size() ==2);}
 	
 	public boolean getWonBlackjack() {return this.wonBlackjack;}
 	
