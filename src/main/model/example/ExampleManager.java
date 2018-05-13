@@ -1,11 +1,11 @@
 package main.model.example;
 
-import main.utils.logger.Logger;
-import main.utils.logger.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExampleManager implements ExampleInterface {
 
-	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+	private final Logger LOG =LoggerFactory.getLogger(this.getClass());
 	
 	@Override
 	public void logSomething(String message) {

@@ -13,8 +13,8 @@ import main.bot.MainApp;
 import main.bot.command.listener.DefaultBotCommandListener;
 import main.bot.command.listener.ExampleCommandListener;
 import main.exception.bot.DuplicatedCommandException;
-import main.utils.logger.Logger;
-import main.utils.logger.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
@@ -28,7 +28,7 @@ public class CommandMapper {
 	private final MainApp mainApp;
 	private final Map<String,CommandBean> commands = new HashMap<String,CommandBean>();
 	
-	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	public CommandMapper(MainApp main) {
 		this.mainApp = main;
@@ -36,7 +36,7 @@ public class CommandMapper {
 			registerCommand(new ExampleCommandListener());
 			registerCommand(new DefaultBotCommandListener(main));
 		} catch (DuplicatedCommandException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(),e);
 		}
 	}
 	
@@ -70,13 +70,13 @@ public class CommandMapper {
 	public void commandConsole(String command){
 		Object[] object = getCommand(command);
 		if(object[0] == null ||  (((CommandBean)object[0]).getType() != ExecutorType.CONSOLE && ((CommandBean)object[0]).getType() != ExecutorType.ALL)){
-			LOG.warn("Unknown command from CONSOLE : "+command);
+			log.warn(String.format("Unknown command from CONSOLE : {0}",command));
 			return;
 		}
 		try{
 			execute(((CommandBean)object[0]), command, (String[])object[1], null);
 		}catch(Exception exception){
-			LOG.error("Method "+((CommandBean)object[0]).getMethod().getName()+" isn't initialised correctly.");
+			log.error("Method "+((CommandBean)object[0]).getMethod().getName()+" isn't initialised correctly.");
 		}
 	}
 	
@@ -87,13 +87,13 @@ public class CommandMapper {
 	public boolean commandUser(User user, String command, Message message){
 		Object[] object = getCommand(command);
 		if(object[0] == null || (((CommandBean)object[0]).getType() != ExecutorType.USER && ((CommandBean)object[0]).getType() != ExecutorType.ALL)) {
-			LOG.warn("Unknown command from USER : "+command);
+			log.warn("Unknown command from USER : {0}",command);
 			return false;
 		}
 		try{
 			execute(((CommandBean)object[0]), command,(String[])object[1], message);
 		}catch(Exception exception){
-			LOG.error("Method "+((CommandBean)object[0]).getMethod().getName()+" isn't initialised correctly.");
+			log.error("Method {O} isn't initialised correctly.",((CommandBean)object[0]).getMethod().getName());
 		}
 		return true;
 	}

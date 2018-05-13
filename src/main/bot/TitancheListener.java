@@ -1,8 +1,6 @@
 package main.bot;
 
 import main.bot.command.CommandMapper;
-import main.utils.logger.Logger;
-import main.utils.logger.LoggerFactory;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
@@ -10,7 +8,6 @@ import net.dv8tion.jda.core.hooks.EventListener;
 public class TitancheListener implements EventListener {
 
 	private final CommandMapper commandMapper;
-	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 	
 	private final String tag = "!";
 	

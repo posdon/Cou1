@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import main.bot.command.CommandMapper;
-import main.utils.logger.Logger;
-import main.utils.logger.LoggerFactory;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
